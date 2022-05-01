@@ -20,16 +20,6 @@ interface Params extends ParsedUrlQuery {
   id: string;
 }
 
-// const isPost = (params: unknown): params is IPosts => {
-//   const post = params as IPosts;
-
-//   return (
-//     typeof user?.id === 'number' &&
-//     typeof user?.username === 'string' &&
-//     typeof user?.age === 'number'
-//   );
-// };
-
 const Post: React.FC<Post> = ({ post }) => {
   if (!post) {
     return <div>Loading...</div>;
@@ -45,13 +35,6 @@ const Post: React.FC<Post> = ({ post }) => {
       <p className='px-10'>
         {post ? documentToReactComponents(post.fields.content) : ''}
       </p>
-      {/* <p className='px-10'>{typeof post === "undefined" ? documentToReactComponents(post.fields.content) : ""}</p> */}
-
-      {/* <p className='px-10'>{
-        if (typeof post !== 'undefined') {
-          console.log(post.fields.content)
-        };
-      };</p> */}
 
       <Link href='/blog-page'>
         <div className='flex cursor-pointer mt-12'>

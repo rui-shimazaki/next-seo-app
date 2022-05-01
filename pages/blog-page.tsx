@@ -12,7 +12,7 @@ const Blog: React.FC<Posts> = ({ posts }) => {
   return (
     <Layout title='Blog'>
       <ul className='m-10'>
-        {posts && posts?.map((post) => <Post key={post.id} post={post} />)}
+        {posts && posts?.map((post) => <Post key={post.slug} post={post} />)}
       </ul>
     </Layout>
   );

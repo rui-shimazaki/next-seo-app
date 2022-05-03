@@ -12,9 +12,10 @@ interface Props {
 }
 
 export default function Layout({ children, title = 'HP by Nextjs' }: Props) {
+  // const title = title;
   return (
     <div className='flex justify-center items-center flex-col min-h-screen text-gray-600 text-sm font-mono'>
-      <HeadComponent title='test' />
+      <HeadComponent title={title} />
       <Header />
       <main className='flex flex-1 justify-center items-center flex-col w-screen'>
         {children}

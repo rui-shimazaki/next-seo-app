@@ -88,11 +88,20 @@ export interface IFooterRelatedLinks extends Entry<IFooterRelatedLinksFields> {
 }
 
 export interface IHeaderFields {
+  /** title */
+  title: string;
+
   /** header_img */
   headerImg?: Asset | undefined;
 
   /** header_menu */
   headerMenu?: Document | undefined;
+
+  /** menus */
+  menus?: string[] | undefined;
+
+  /** menus2 */
+  menus2: Record<string, any>;
 }
 
 export interface IHeader extends Entry<IHeaderFields> {
@@ -185,6 +194,9 @@ export interface IPostsFields {
   /** index */
   index?: string[] | undefined;
 
+  /** intro（導入文） */
+  intro?: Document | undefined;
+
   /** read_together */
   read_Together?: string | undefined;
 
@@ -196,6 +208,9 @@ export interface IPostsFields {
 
   /** recommendation */
   recommendation?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
+
+  /** thumbnail（サムネイル） */
+  thumbnail?: Asset | undefined;
 }
 
 /** みつ葉テスト用正式版 */

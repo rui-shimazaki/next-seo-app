@@ -3,6 +3,28 @@
 import { Asset, Entry } from 'contentful';
 import { Document } from '@contentful/rich-text-types';
 
+export interface IAssetHtmlFields {
+  /** asset */
+  asset?: Document | undefined;
+}
+
+export interface IAssetHtml extends Entry<IAssetHtmlFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'asset_html';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
 export interface ICompanyFields {
   /** name（会社名） */
   name?: string | undefined;
@@ -184,6 +206,31 @@ export interface IMitsubaTest extends Entry<IMitsubaTestFields> {
   };
 }
 
+export interface INatsunaTestFields {
+  /** body */
+  body?: string | undefined;
+
+  /** ritchbody */
+  ritchbody?: Document | undefined;
+}
+
+export interface INatsunaTest extends Entry<INatsunaTestFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'natsunaTest';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
 export interface IPostsFields {
   /** title */
   title: string;
@@ -233,12 +280,14 @@ export interface IPosts extends Entry<IPostsFields> {
 }
 
 export type CONTENT_TYPE =
+  | 'asset_html'
   | 'company'
   | 'footer'
   | 'footerRelatedLinks'
   | 'header'
   | 'mitsubatest'
   | 'mitsubaTest'
+  | 'natsunaTest'
   | 'posts';
 
 export type LOCALE_CODE = 'en-US';

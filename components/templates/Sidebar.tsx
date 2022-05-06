@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import React, { FC, memo } from 'react';
 
 const Sidebar = () => {

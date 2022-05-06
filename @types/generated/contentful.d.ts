@@ -3,6 +3,28 @@
 import { Asset, Entry } from 'contentful';
 import { Document } from '@contentful/rich-text-types';
 
+export interface IAssetHtmlFields {
+  /** asset */
+  asset?: Document | undefined;
+}
+
+export interface IAssetHtml extends Entry<IAssetHtmlFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'asset_html';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
 export interface ICompanyFields {
   /** name（会社名） */
   name?: string | undefined;
@@ -88,11 +110,20 @@ export interface IFooterRelatedLinks extends Entry<IFooterRelatedLinksFields> {
 }
 
 export interface IHeaderFields {
+  /** title */
+  title: string;
+
   /** header_img */
   headerImg?: Asset | undefined;
 
   /** header_menu */
   headerMenu?: Document | undefined;
+
+  /** menus */
+  menus?: string[] | undefined;
+
+  /** menus2 */
+  menus2: Record<string, any>;
 }
 
 export interface IHeader extends Entry<IHeaderFields> {
@@ -175,6 +206,31 @@ export interface IMitsubaTest extends Entry<IMitsubaTestFields> {
   };
 }
 
+export interface INatsunaTestFields {
+  /** body */
+  body?: string | undefined;
+
+  /** ritchbody */
+  ritchbody?: Document | undefined;
+}
+
+export interface INatsunaTest extends Entry<INatsunaTestFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: 'natsunaTest';
+        linkType: 'ContentType';
+        type: 'Link';
+      };
+    };
+  };
+}
+
 export interface IPostsFields {
   /** title */
   title: string;
@@ -184,6 +240,9 @@ export interface IPostsFields {
 
   /** index */
   index?: string[] | undefined;
+
+  /** intro（導入文） */
+  intro?: Document | undefined;
 
   /** read_together */
   read_Together?: string | undefined;
@@ -196,6 +255,9 @@ export interface IPostsFields {
 
   /** recommendation */
   recommendation?: Entry<{ [fieldId: string]: unknown }>[] | undefined;
+
+  /** thumbnail（サムネイル） */
+  thumbnail?: Asset | undefined;
 }
 
 /** みつ葉テスト用正式版 */
@@ -218,12 +280,14 @@ export interface IPosts extends Entry<IPostsFields> {
 }
 
 export type CONTENT_TYPE =
+  | 'asset_html'
   | 'company'
   | 'footer'
   | 'footerRelatedLinks'
   | 'header'
   | 'mitsubatest'
   | 'mitsubaTest'
+  | 'natsunaTest'
   | 'posts';
 
 export type LOCALE_CODE = 'en-US';

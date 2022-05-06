@@ -1,7 +1,7 @@
 import { EntryCollection } from 'contentful';
 import { IPostsFields } from '../@types/generated/contentful';
-import Layout from '../components/Layout';
-import Post from '../components/Post';
+import Layout from '../components/templates/Layout';
+import Post from '../components/pages/Post';
 import { getAllPostsData } from '../lib/posts';
 
 interface Posts {
@@ -11,8 +11,8 @@ interface Posts {
 const Blog: React.FC<Posts> = ({ posts }) => {
   return (
     <Layout title='Blog'>
-      <ul className='m-10'>
-        {posts && posts?.map((post) => <Post key={post.id} post={post} />)}
+      <ul className='m-5'>
+        {posts && posts?.map((post) => <Post key={post.slug} post={post} />)}
       </ul>
     </Layout>
   );

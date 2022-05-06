@@ -1,4 +1,4 @@
-import Layout from '../components/Layout';
+import Layout from '../components/templates/Layout';
 
 export default function Home() {
   return (
@@ -7,3 +7,14 @@ export default function Home() {
     </Layout>
   );
 }
+
+// export async function getStaticProps() {
+//   const mediaInfo = await getMediaInfo();
+
+//   return {
+//     props: {
+//       mediaInfo,
+//     },
+//     revalidate: 3,
+//   };
+// }

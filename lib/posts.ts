@@ -44,5 +44,8 @@ export async function getPostData(id: string) {
     return result;
   });
 
+  console.log('post');
+  console.log(post);
+
   return post;
 }

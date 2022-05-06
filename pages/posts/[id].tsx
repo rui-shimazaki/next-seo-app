@@ -1,12 +1,16 @@
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { Entry } from 'contentful';
+import { Asset, Entry } from 'contentful';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 import { ParsedUrlQuery } from 'querystring';
+import { ReactNode } from 'react';
 import { IPosts, IPostsFields } from '../../@types/generated/contentful';
-import Layout from '../../components/Layout';
+import MenuBtn from '../../components/atoms/button/MenuBtn';
+import Layout from '../../components/templates/Layout';
+import { getAssetData } from '../../lib/asset';
 import { getAllPostIds, getPostData } from '../../lib/posts';
+import Avatar from '../../utils/image';
 
 interface Post {
   post: Entry<IPostsFields>;
@@ -14,64 +18,38 @@ interface Post {
 
 interface Props {
   post: Entry<IPosts>;
+  asset: Asset | string;
 }
 
 interface Params extends ParsedUrlQuery {
   id: string;
 }
 
-// const isPost = (params: unknown): params is IPosts => {
-//   const post = params as IPosts;
-
-//   return (
-//     typeof user?.id === 'number' &&
-//     typeof user?.username === 'string' &&
-//     typeof user?.age === 'number'
-//   );
-// };
-
-const Post: React.FC<Post> = ({ post }) => {
+const Post: React.FC<Props> = ({ post, asset }) => {
+  // const post: Entry<IPosts> = props.post;
+  // const asset = props.asset;
   if (!post) {
     return <div>Loading...</div>;
   }
 
+  // console.log('thumbnail');
+  // console.log(post.fields.thumbnail?.sys.id);
+
   return (
     <Layout title={post.fields.title}>
+      <Avatar />
+      {/* <p className='w-full'>{post.fields.thumbnail.id ? post.fields.thumbnail.sys.id : ''}</p> */}
       <p className='m-4'>
         {'ID : '}
         {post.sys.id}
       </p>
       <p className='mb-8 text-xl font-bold'>{post.fields.title}</p>
       <p className='px-10'>
-        {post ? documentToReactComponents(post.fields.content) : ''}
+        {post.fields.intro ? documentToReactComponents(post.fields.intro) : ''}
       </p>
-      {/* <p className='px-10'>{typeof post === "undefined" ? documentToReactComponents(post.fields.content) : ""}</p> */}
-
-      {/* <p className='px-10'>{
-        if (typeof post !== 'undefined') {
-          console.log(post.fields.content)
-        };
-      };</p> */}
-
-      <Link href='/blog-page'>
-        <div className='flex cursor-pointer mt-12'>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className='h-6 w-6 mr-3'
-            fill='none'
-            viewBox='0 0 24 24'
-            stroke='currentColor'
-            strokeWidth='2'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              d='M11 19l-7-7 7-7m8 14l-7-7 7-7'
-            />
-          </svg>
-          <span>Back to blog-page</span>
-        </div>
-      </Link>
+      <p className='px-10'>{documentToReactComponents(post.fields.content)}</p>
+      <p className='px-10'>{post ? post.fields.supervisor : ''}</p>
+      <MenuBtn />
     </Layout>
   );
 };
@@ -89,14 +67,23 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 export const getStaticProps: GetStaticProps<Props, Params> = async ({
   params,
 }) => {
-  const post = await getPostData(params!.id);
+  const post: Entry<IPosts> = await getPostData(params!.id);
+  const thumbnail_id: string | undefined = await post.fields.thumbnail?.sys.id;
+
+  // const thumbnail_id: string =;
+  const asset: Asset | string =
+    thumbnail_id !== undefined ? await getAssetData(thumbnail_id) : '';
 
   await console.log('post');
   await console.log(post);
 
+  await console.log('asset');
+  await console.log(asset);
+
   return {
     props: {
       post,
+      asset,
     },
   };
 };

@@ -10,7 +10,7 @@ import MenuBtn from '../../components/atoms/button/MenuBtn';
 import Layout from '../../components/templates/Layout';
 import { getAssetData } from '../../lib/asset';
 import { getAllPostIds, getPostData } from '../../lib/posts';
-import Avatar from '../../utils/image';
+import Avatar, { Avatar2 } from '../../utils/image';
 
 interface Post {
   post: Entry<IPostsFields>;
@@ -26,18 +26,23 @@ interface Params extends ParsedUrlQuery {
 }
 
 const Post: React.FC<Props> = ({ post, asset }) => {
-  // const post: Entry<IPosts> = props.post;
-  // const asset = props.asset;
   if (!post) {
     return <div>Loading...</div>;
   }
 
-  // console.log('thumbnail');
-  // console.log(post.fields.thumbnail?.sys.id);
+  console.log('asset');
+  console.log(asset);
 
   return (
     <Layout title={post.fields.title}>
       <Avatar />
+      <Avatar2
+        src={asset.fields.file.url}
+        width={'50'}
+        height={'50'}
+        quality={'80'}
+      />
+
       {/* <p className='w-full'>{post.fields.thumbnail.id ? post.fields.thumbnail.sys.id : ''}</p> */}
       <p className='m-4'>
         {'ID : '}
